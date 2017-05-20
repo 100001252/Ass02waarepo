@@ -16,11 +16,12 @@ public class RunDb {
 			// testinsertBook();
 			// testgetLastid();
 			// testdeleteBook();
-			testUniLibgetAllBook();
+			// testUniLibgetAllBook();
 			// testUniLibgetStudentRecord();
 			// testUniLibgetStudentRecord2();
 			// testUniLibgetspecificBook();
 			// testUniLibupdateBook("my title", "0000000012");
+			testIsbnExist();
 
 			// testUniLibaddBook("tet", "1234444446");
 			// testInsertIntoborrow();
@@ -28,6 +29,16 @@ public class RunDb {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public static void testIsbnExist() {
+		Ass02BookSoap ubook = new Ass02BookSoap();
+		if (ubook.isIsbnExist("1234567987798")) {
+			System.out.println("yyyyyyisbn exist");
+		} else {
+			System.out.println("nnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+		}
+
 	}
 
 	public static void testInsertIntoborrow() {
