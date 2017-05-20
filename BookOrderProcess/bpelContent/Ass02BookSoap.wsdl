@@ -810,22 +810,22 @@
     </wsdl:binding>
     <wsdl:service name="Ass02BookSoap">
         <wsdl:port name="Ass02BookSoapHttpSoap11Endpoint" binding="ns:Ass02BookSoapSoap11Binding">
-            <soap:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap11Endpoint/"></soap:address>
+            <soap:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsSoap11Endpoint" binding="ns:Ass02BookSoapSoap11Binding">
-            <soap:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap11Endpoint/"></soap:address>
+            <soap:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsSoap12Endpoint" binding="ns:Ass02BookSoapSoap12Binding">
-            <soap12:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap12Endpoint/"></soap12:address>
+            <soap12:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpSoap12Endpoint" binding="ns:Ass02BookSoapSoap12Binding">
-            <soap12:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap12Endpoint/"></soap12:address>
+            <soap12:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpEndpoint" binding="ns:Ass02BookSoapHttpBinding">
-            <http:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpEndpoint/"></http:address>
+            <http:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpEndpoint/"></http:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsEndpoint" binding="ns:Ass02BookSoapHttpBinding">
-            <http:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsEndpoint/"></http:address>
+            <http:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsEndpoint/"></http:address>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

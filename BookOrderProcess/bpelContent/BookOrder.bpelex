@@ -6,7 +6,7 @@
   </extensions>
   <extensions>
     <extendedObject href="BookOrder.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1495298496136"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1495301600445"/>
   </extensions>
   <extensions>
     <extendedObject href="BookOrder.bpel#//@activity/@activities.0"/>
