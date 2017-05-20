@@ -1,11 +1,14 @@
 package au.edu.swin.waa;
 
-import com.mysql.jdbc.Driver;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
-/**class DB to connect to db for book database and student record database
- * 
+
+/**
+ * class DB to connect to db for book database and student record database
+ *
  * @author XC8184
  *
  */
@@ -22,7 +25,7 @@ public class Db {
 
 	/**
 	 * constructor to connect to db
-	 * 
+	 *
 	 * @param dbName
 	 *            database name
 	 */
@@ -42,8 +45,8 @@ public class Db {
 
 	/**
 	 * constructor to connect to db
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	public Db() {
 		try {
@@ -62,6 +65,7 @@ public class Db {
 	public class DbBook {
 		private String tableName = "books";
 		private String dbName = "waa";
+
 		/*
 		 * a consturctor for DbBook class
 		 */
@@ -71,10 +75,11 @@ public class Db {
 
 		/**
 		 * set status of a specific book with book id
-		 * 
+		 *
 		 * @param bookid
 		 * @param status
-		 * @return if update is successfull it returns true. otherwise it returns false
+		 * @return if update is successfull it returns true. otherwise it
+		 *         returns false
 		 * @throws Exception
 		 */
 		public boolean setStatus(Integer bookid, String status)
@@ -97,8 +102,10 @@ public class Db {
 			}
 
 		}
-		/**function to update book details in db with book id
-		 * 
+
+		/**
+		 * function to update book details in db with book id
+		 *
 		 * @param bookid
 		 * @param title
 		 * @param authorList
@@ -134,8 +141,10 @@ public class Db {
 			}
 
 		}
-		/**function to delete a book with book id
-		 * 
+
+		/**
+		 * function to delete a book with book id
+		 *
 		 * @param bookid
 		 * @return if action is successfull return true otherwise return false
 		 * @throws Exception
@@ -162,7 +171,7 @@ public class Db {
 
 		/**
 		 * get all books in database
-		 * 
+		 *
 		 * @return rsultSet (it is usable in any other functions)
 		 * @throws BookException
 		 */
@@ -182,7 +191,7 @@ public class Db {
 
 		/**
 		 * get one pecific book with id
-		 * 
+		 *
 		 * @return rsultSet (it is usable in any other functions)
 		 * @throws BookException
 		 */
@@ -200,10 +209,13 @@ public class Db {
 
 			}
 		}
-		/**function to check if book_id exist in database
-		 * 
+
+		/**
+		 * function to check if book_id exist in database
+		 *
 		 * @param bookid
-		 * @return if book_id exist in db it returns true, otherwise it returns false
+		 * @return if book_id exist in db it returns true, otherwise it returns
+		 *         false
 		 * @throws Exception
 		 */
 		public boolean findBook(Integer bookid) throws Exception {
@@ -227,10 +239,44 @@ public class Db {
 
 			}
 		}
-		/**function to check if isbn exists in database already(isbn is international unique key)
-		 * 
+
+		/**
+		 * function to check if book_id exist in database
+		 *
+		 * @param bookid
+		 * @return if book_id exist in db it returns true, otherwise it returns
+		 *         false
+		 * @throws Exception
+		 */
+		public boolean isIsbnExist(String isbn) throws Exception {
+			boolean result = false;
+			try {
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select count(*) from " + tableName
+						+ " where isbn=" + isbn);
+				while (myRs.next()) {
+					if (myRs.getInt(1) > 0)
+						result = true;
+					else
+						result = false;
+				}
+
+				return result;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+		}
+
+		/**
+		 * function to check if isbn exists in database already(isbn is
+		 * international unique key)
+		 *
 		 * @param isbn
-		 * @return return true if isbn already exists, otherwise it returns false
+		 * @return return true if isbn already exists, otherwise it returns
+		 *         false
 		 * @throws BookException
 		 */
 		public boolean isBookWithIsbnExist(String isbn) throws BookException {
@@ -255,8 +301,10 @@ public class Db {
 			}
 
 		}
-		/**function to return last book entered into db
-		 * 
+
+		/**
+		 * function to return last book entered into db
+		 *
 		 * @return last Book_id in db
 		 * @throws Exception
 		 */
@@ -281,7 +329,7 @@ public class Db {
 
 		/**
 		 * function to insert a book
-		 * 
+		 *
 		 * @param bookId
 		 * @param bookTitle
 		 * @param authorList
@@ -295,7 +343,7 @@ public class Db {
 		 */
 		public boolean insretBook(Book objBook) throws BookException {
 			try {
-				SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 				myStmt = myConn.createStatement();
 				String sql = "insert into " + dbName + "." + tableName
@@ -324,15 +372,18 @@ public class Db {
 
 	public class DbStudentBorrow {
 		private String tableName = "student_borrow";
+
 		/**
 		 * constructor for student records table
 		 */
 		public DbStudentBorrow() {
 
 		}
-		/**function to check if a record for specific student_id and book_id exist(we should not have more
-		 * than one book_id in db records)
-		 * 
+
+		/**
+		 * function to check if a record for specific student_id and book_id
+		 * exist(we should not have more than one book_id in db records)
+		 *
 		 * @param studentId
 		 * @param bookId
 		 * @return if it exist it return true
@@ -361,8 +412,10 @@ public class Db {
 
 			}
 		}
-		/** function to retrive records of specific student with student id
-		 * 
+
+		/**
+		 * function to retrive records of specific student with student id
+		 *
 		 * @param studentId
 		 * @return it return resultset of that row
 		 * @throws Exception
@@ -382,8 +435,10 @@ public class Db {
 
 			}
 		}
-		/**it return records of specific student in detail of book
-		 * 
+
+		/**
+		 * it return records of specific student in detail of book
+		 *
 		 * @param studentId
 		 * @return resultset record row
 		 * @throws Exception
@@ -406,8 +461,10 @@ public class Db {
 
 			}
 		}
-		/** this function return records of all student in db
-		 * 
+
+		/**
+		 * this function return records of all student in db
+		 *
 		 * @return resultset of all records in db borrowrecords
 		 * @throws Exception
 		 */
@@ -424,8 +481,11 @@ public class Db {
 
 			}
 		}
-		/**function that update records of borrow for student_id and book_id (change action)
-		 * 
+
+		/**
+		 * function that update records of borrow for student_id and book_id
+		 * (change action)
+		 *
 		 * @param studentId
 		 * @param bookId
 		 * @param action
@@ -456,8 +516,10 @@ public class Db {
 			}
 
 		}
-		/**function to insert borrow record for student_id and book_id
-		 * 
+
+		/**
+		 * function to insert borrow record for student_id and book_id
+		 *
 		 * @param studentId
 		 * @param bookId
 		 * @param action
@@ -493,7 +555,7 @@ public class Db {
 
 		/**
 		 * delete records for student_borrrowing tabale
-		 * 
+		 *
 		 * @param studentId
 		 * @param bookId
 		 * @param action
