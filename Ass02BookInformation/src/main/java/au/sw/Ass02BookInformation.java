@@ -75,7 +75,7 @@ public class Ass02BookInformation {
 				message += "Rating for this book is less than 3 we cannot process.";
 			}
 			if (!isAvailableInAustralia(isbn)) {
-				message += "This book is not available in australia.";
+				message += "This book is not available in australia and Ebook is not availble for this book.";
 			}
 
 			return message;
