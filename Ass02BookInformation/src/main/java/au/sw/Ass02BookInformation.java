@@ -31,10 +31,27 @@ public class Ass02BookInformation {
 
 	}
 
+	public boolean isEbookAvailable(String isbn) {
+		boolean result = false;
+		try {
+			Db.DbBookInformation dbinfo = new Db("").new DbBookInformation();
+			return dbinfo.isEbookAvailable(isbn);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+
 	public boolean validateAllThree(String isbn) {
 		boolean result = false;
 		try {
 			if (isRatingInRange(isbn) && isAvailableInAustralia(isbn)
+					&& isIsbnExist(isbn)) {
+				result = true;
+			}
+			if (isRatingInRange(isbn) && isEbookAvailable(isbn)
 					&& isIsbnExist(isbn)) {
 				result = true;
 			}
