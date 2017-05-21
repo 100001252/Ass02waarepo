@@ -1,13 +1,22 @@
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://swin.au" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ax2472="http://swin.au/xsd" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://swin.au">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://waa.swin.edu.au" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ax21="http://waa.swin.edu.au/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://waa.swin.edu.au">
     <wsdl:documentation>Ass02BookSoap</wsdl:documentation>
     <wsdl:types>
-        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://swin.au/xsd">
-            <xs:complexType name="BookException">
-                <xs:sequence></xs:sequence>
-            </xs:complexType>
-        </xs:schema>
-        <xs:schema xmlns:ax2473="http://swin.au/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://swin.au">
-            <xs:import namespace="http://swin.au/xsd"></xs:import>
+        <xs:schema xmlns:ax22="http://waa.swin.edu.au/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://waa.swin.edu.au">
+            <xs:import namespace="http://waa.swin.edu.au/xsd"></xs:import>
+            <xs:element name="isIsbnExist">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="isIsbnExistResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="getRecordsStudent">
                 <xs:complexType>
                     <xs:sequence>
@@ -51,7 +60,7 @@
             <xs:element name="Ass02BookSoapBookException">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="BookException" nillable="true" type="ax2472:BookException"></xs:element>
+                        <xs:element minOccurs="0" name="BookException" nillable="true" type="ax22:BookException"></xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -102,60 +111,12 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="addBook2">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="bookTitle" nillable="true" type="xs:string"></xs:element>
-                        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="addBook2Response">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="deleteBook">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="bookId" type="xs:int"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="deleteBookResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
             <xs:element name="getAllBook">
                 <xs:complexType>
                     <xs:sequence></xs:sequence>
                 </xs:complexType>
             </xs:element>
             <xs:element name="getAllBookResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="addBook">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="bookTitle" nillable="true" type="xs:string"></xs:element>
-                        <xs:element minOccurs="0" name="authorList" nillable="true" type="xs:string"></xs:element>
-                        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string"></xs:element>
-                        <xs:element minOccurs="0" name="publisher" nillable="true" type="xs:string"></xs:element>
-                        <xs:element minOccurs="0" name="publishDate" nillable="true" type="xs:string"></xs:element>
-                        <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="addBookResponse">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
@@ -196,6 +157,54 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="addBook">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="bookTitle" nillable="true" type="xs:string"></xs:element>
+                        <xs:element minOccurs="0" name="authorList" nillable="true" type="xs:string"></xs:element>
+                        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string"></xs:element>
+                        <xs:element minOccurs="0" name="publisher" nillable="true" type="xs:string"></xs:element>
+                        <xs:element minOccurs="0" name="publishDate" nillable="true" type="xs:string"></xs:element>
+                        <xs:element minOccurs="0" name="status" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addBook2">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="bookTitle" nillable="true" type="xs:string"></xs:element>
+                        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addBook2Response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="deleteBook">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="bookId" type="xs:int"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="deleteBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="setBookStatus">
                 <xs:complexType>
                     <xs:sequence>
@@ -211,20 +220,11 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="isIsbnExist">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="isIsbnExistResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="return" type="xs:boolean"></xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://waa.swin.edu.au/xsd">
+            <xs:complexType name="BookException">
+                <xs:sequence></xs:sequence>
+            </xs:complexType>
         </xs:schema>
     </wsdl:types>
     <wsdl:message name="getBookRequest">
@@ -810,22 +810,22 @@
     </wsdl:binding>
     <wsdl:service name="Ass02BookSoap">
         <wsdl:port name="Ass02BookSoapHttpSoap11Endpoint" binding="ns:Ass02BookSoapSoap11Binding">
-            <soap:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap11Endpoint/"></soap:address>
+            <soap:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsSoap11Endpoint" binding="ns:Ass02BookSoapSoap11Binding">
-            <soap:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap11Endpoint/"></soap:address>
+            <soap:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsSoap12Endpoint" binding="ns:Ass02BookSoapSoap12Binding">
-            <soap12:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap12Endpoint/"></soap12:address>
+            <soap12:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpSoap12Endpoint" binding="ns:Ass02BookSoapSoap12Binding">
-            <soap12:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap12Endpoint/"></soap12:address>
+            <soap12:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpEndpoint" binding="ns:Ass02BookSoapHttpBinding">
-            <http:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpEndpoint/"></http:address>
+            <http:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpEndpoint/"></http:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsEndpoint" binding="ns:Ass02BookSoapHttpBinding">
-            <http:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsEndpoint/"></http:address>
+            <http:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsEndpoint/"></http:address>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
