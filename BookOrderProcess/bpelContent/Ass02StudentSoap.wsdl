@@ -302,22 +302,22 @@
     </wsdl:binding>
     <wsdl:service name="Ass02StudentSoap">
         <wsdl:port name="Ass02StudentSoapHttpSoap11Endpoint" binding="ns:Ass02StudentSoapSoap11Binding">
-            <soap:address location="http://10.1.6.168:9763/services/Ass02StudentSoap.Ass02StudentSoapHttpSoap11Endpoint/"></soap:address>
+            <soap:address location="http://localhost:9763/services/Ass02StudentSoap.Ass02StudentSoapHttpSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02StudentSoapHttpsSoap11Endpoint" binding="ns:Ass02StudentSoapSoap11Binding">
-            <soap:address location="https://10.1.6.168:9443/services/Ass02StudentSoap.Ass02StudentSoapHttpsSoap11Endpoint/"></soap:address>
+            <soap:address location="https://localhost:9443/services/Ass02StudentSoap.Ass02StudentSoapHttpsSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02StudentSoapHttpSoap12Endpoint" binding="ns:Ass02StudentSoapSoap12Binding">
-            <soap12:address location="http://10.1.6.168:9763/services/Ass02StudentSoap.Ass02StudentSoapHttpSoap12Endpoint/"></soap12:address>
+            <soap12:address location="http://localhost:9763/services/Ass02StudentSoap.Ass02StudentSoapHttpSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02StudentSoapHttpsSoap12Endpoint" binding="ns:Ass02StudentSoapSoap12Binding">
-            <soap12:address location="https://10.1.6.168:9443/services/Ass02StudentSoap.Ass02StudentSoapHttpsSoap12Endpoint/"></soap12:address>
+            <soap12:address location="https://localhost:9443/services/Ass02StudentSoap.Ass02StudentSoapHttpsSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02StudentSoapHttpEndpoint" binding="ns:Ass02StudentSoapHttpBinding">
-            <http:address location="http://10.1.6.168:9763/services/Ass02StudentSoap.Ass02StudentSoapHttpEndpoint/"></http:address>
+            <http:address location="http://localhost:9763/services/Ass02StudentSoap.Ass02StudentSoapHttpEndpoint/"></http:address>
         </wsdl:port>
         <wsdl:port name="Ass02StudentSoapHttpsEndpoint" binding="ns:Ass02StudentSoapHttpBinding">
-            <http:address location="https://10.1.6.168:9443/services/Ass02StudentSoap.Ass02StudentSoapHttpsEndpoint/"></http:address>
+            <http:address location="https://localhost:9443/services/Ass02StudentSoap.Ass02StudentSoapHttpsEndpoint/"></http:address>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

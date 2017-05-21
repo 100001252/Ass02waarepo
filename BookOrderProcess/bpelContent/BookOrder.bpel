@@ -28,6 +28,10 @@
         <bpel:variable name="studentLinkRequest" messageType="ns1:isStudentExistRequest"></bpel:variable>
         <bpel:variable name="bookShopLinkResponse" messageType="ns2:validateAllThreeMessageResponse"></bpel:variable>
         <bpel:variable name="bookShopLinkRequest" messageType="ns2:validateAllThreeMessageRequest"></bpel:variable>
+        <bpel:variable name="bookShopLinkResponse1" messageType="ns2:getAllDetailBookResponse"></bpel:variable>
+        <bpel:variable name="bookShopLinkRequest1" messageType="ns2:getAllDetailBookRequest"></bpel:variable>
+        <bpel:variable name="bookLibLinkResponse1" messageType="ns0:orderBookByBpelResponse"></bpel:variable>
+        <bpel:variable name="bookLibLinkRequest1" messageType="ns0:orderBookByBpelRequest"></bpel:variable>
     </bpel:variables>
     <bpel:sequence name="main">
 		
@@ -171,7 +175,53 @@
                         </bpel:assign>
                     </bpel:elseif><bpel:elseif>
                         <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[$bookShopLinkResponse.parameters/ns2:return=""]]></bpel:condition>
-                        <bpel:assign validate="no" name="Assign2">
+                        <bpel:sequence>
+                            <bpel:assign validate="no" name="assignForGetInfo">
+                                <bpel:copy>
+                                    <bpel:from><bpel:literal><ns:getAllDetailBook xmlns:ns="http://sw.au" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns:isbn>ns:isbn</ns:isbn>
+</ns:getAllDetailBook>
+</bpel:literal></bpel:from>
+                                    <bpel:to variable="bookShopLinkRequest1" part="parameters"></bpel:to>
+                                </bpel:copy>
+                                <bpel:copy>
+                                    <bpel:from part="parameters" variable="clientInputLinkRequest">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[isbn]]></bpel:query>
+                                    </bpel:from>
+                                    <bpel:to part="parameters" variable="bookShopLinkRequest1">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:isbn]]></bpel:query>
+                                    </bpel:to>
+                                </bpel:copy>
+                            </bpel:assign>
+                            <bpel:invoke name="invokeGetInfo" partnerLink="bookShopLink" operation="getAllDetailBook" portType="ns2:Ass02BookInformationPortType" inputVariable="bookShopLinkRequest1" outputVariable="bookShopLinkResponse1"></bpel:invoke>
+                            <bpel:assign validate="no" name="assignForUpdating">
+                                <bpel:copy>
+                                    <bpel:from><bpel:literal><ns:orderBookByBpel xmlns:ns="http://waa.swin.edu.au" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns:studentId>0</ns:studentId>
+  <ns:bookinfo>ns:bookinfo</ns:bookinfo>
+</ns:orderBookByBpel>
+</bpel:literal></bpel:from>
+                                    <bpel:to variable="bookLibLinkRequest1" part="parameters"></bpel:to>
+                                </bpel:copy>
+                                <bpel:copy>
+                                    <bpel:from part="parameters" variable="clientInputLinkRequest">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[studentId]]></bpel:query>
+                                    </bpel:from>
+                                    <bpel:to part="parameters" variable="bookLibLinkRequest1">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns0:studentId]]></bpel:query>
+                                    </bpel:to>
+                                </bpel:copy>
+                                <bpel:copy>
+                                    <bpel:from part="parameters" variable="bookShopLinkResponse1">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:return]]></bpel:query>
+                                    </bpel:from>
+                                    <bpel:to part="parameters" variable="bookLibLinkRequest1">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns0:bookinfo]]></bpel:query>
+                                    </bpel:to>
+                                </bpel:copy>
+                            </bpel:assign>
+                            <bpel:invoke name="invokeUpdating" partnerLink="bookLibLink" operation="orderBookByBpel" portType="ns0:Ass02BookSoapPortType" inputVariable="bookLibLinkRequest1" outputVariable="bookLibLinkResponse1"></bpel:invoke>
+                            <bpel:assign validate="no" name="Assign2">
                             <bpel:copy>
                                 <bpel:from><bpel:literal><ns:orderBookResponse xmlns:ns="http://waa.swin.artifacts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <replyResponse>bookOrderSuccessfully</replyResponse>
@@ -181,6 +231,11 @@
                             </bpel:copy>
                             
                         </bpel:assign>
+                            
+                            
+                            
+                            
+                        </bpel:sequence>
                     </bpel:elseif><bpel:else>
                         <bpel:assign validate="no" name="Assign3">
                             <bpel:copy>

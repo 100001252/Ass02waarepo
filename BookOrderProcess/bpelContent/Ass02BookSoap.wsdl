@@ -1,8 +1,23 @@
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://waa.swin.edu.au" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ax21="http://waa.swin.edu.au/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://waa.swin.edu.au">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ax2466="http://waa.swin.edu.au/xsd" xmlns:ns="http://waa.swin.edu.au" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://waa.swin.edu.au">
     <wsdl:documentation>Ass02BookSoap</wsdl:documentation>
     <wsdl:types>
-        <xs:schema xmlns:ax22="http://waa.swin.edu.au/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://waa.swin.edu.au">
+        <xs:schema xmlns:ax2467="http://waa.swin.edu.au/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://waa.swin.edu.au">
             <xs:import namespace="http://waa.swin.edu.au/xsd"></xs:import>
+            <xs:element name="orderBookByBpel">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="studentId" type="xs:int"></xs:element>
+                        <xs:element minOccurs="0" name="bookinfo" nillable="true" type="xs:string"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="orderBookByBpelResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:boolean"></xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="isIsbnExist">
                 <xs:complexType>
                     <xs:sequence>
@@ -60,7 +75,7 @@
             <xs:element name="Ass02BookSoapBookException">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="BookException" nillable="true" type="ax22:BookException"></xs:element>
+                        <xs:element minOccurs="0" name="BookException" nillable="true" type="ax2466:BookException"></xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -260,6 +275,12 @@
     <wsdl:message name="updateBookResponse">
         <wsdl:part name="parameters" element="ns:updateBookResponse"></wsdl:part>
     </wsdl:message>
+    <wsdl:message name="orderBookByBpelRequest">
+        <wsdl:part name="parameters" element="ns:orderBookByBpel"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="orderBookByBpelResponse">
+        <wsdl:part name="parameters" element="ns:orderBookByBpelResponse"></wsdl:part>
+    </wsdl:message>
     <wsdl:message name="addBookRequest">
         <wsdl:part name="parameters" element="ns:addBook"></wsdl:part>
     </wsdl:message>
@@ -337,6 +358,10 @@
             <wsdl:input message="ns:updateBookRequest" wsaw:Action="urn:updateBook"></wsdl:input>
             <wsdl:output message="ns:updateBookResponse" wsaw:Action="urn:updateBookResponse"></wsdl:output>
             <wsdl:fault message="ns:Ass02BookSoapBookException" name="Ass02BookSoapBookException" wsaw:Action="urn:updateBookAss02BookSoapBookException"></wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="orderBookByBpel">
+            <wsdl:input message="ns:orderBookByBpelRequest" wsaw:Action="urn:orderBookByBpel"></wsdl:input>
+            <wsdl:output message="ns:orderBookByBpelResponse" wsaw:Action="urn:orderBookByBpelResponse"></wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="addBook">
             <wsdl:input message="ns:addBookRequest" wsaw:Action="urn:addBook"></wsdl:input>
@@ -434,6 +459,15 @@
             <wsdl:fault name="Ass02BookSoapBookException">
                 <soap:fault use="literal" name="Ass02BookSoapBookException"></soap:fault>
             </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="orderBookByBpel">
+            <soap:operation soapAction="urn:orderBookByBpel" style="document"></soap:operation>
+            <wsdl:input>
+                <soap:body use="literal"></soap:body>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"></soap:body>
+            </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="addBook">
             <soap:operation soapAction="urn:addBook" style="document"></soap:operation>
@@ -585,6 +619,15 @@
                 <soap12:fault use="literal" name="Ass02BookSoapBookException"></soap12:fault>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="orderBookByBpel">
+            <soap12:operation soapAction="urn:orderBookByBpel" style="document"></soap12:operation>
+            <wsdl:input>
+                <soap12:body use="literal"></soap12:body>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"></soap12:body>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="addBook">
             <soap12:operation soapAction="urn:addBook" style="document"></soap12:operation>
             <wsdl:input>
@@ -726,6 +769,15 @@
                 <mime:content type="text/xml" part="parameters"></mime:content>
             </wsdl:output>
         </wsdl:operation>
+        <wsdl:operation name="orderBookByBpel">
+            <http:operation location="orderBookByBpel"></http:operation>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"></mime:content>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"></mime:content>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="addBook">
             <http:operation location="addBook"></http:operation>
             <wsdl:input>
@@ -810,22 +862,22 @@
     </wsdl:binding>
     <wsdl:service name="Ass02BookSoap">
         <wsdl:port name="Ass02BookSoapHttpSoap11Endpoint" binding="ns:Ass02BookSoapSoap11Binding">
-            <soap:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap11Endpoint/"></soap:address>
+            <soap:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsSoap11Endpoint" binding="ns:Ass02BookSoapSoap11Binding">
-            <soap:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap11Endpoint/"></soap:address>
+            <soap:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap11Endpoint/"></soap:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsSoap12Endpoint" binding="ns:Ass02BookSoapSoap12Binding">
-            <soap12:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap12Endpoint/"></soap12:address>
+            <soap12:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpSoap12Endpoint" binding="ns:Ass02BookSoapSoap12Binding">
-            <soap12:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap12Endpoint/"></soap12:address>
+            <soap12:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpSoap12Endpoint/"></soap12:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpEndpoint" binding="ns:Ass02BookSoapHttpBinding">
-            <http:address location="http://10.1.6.168:9763/services/Ass02BookSoap.Ass02BookSoapHttpEndpoint/"></http:address>
+            <http:address location="http://localhost:9763/services/Ass02BookSoap.Ass02BookSoapHttpEndpoint/"></http:address>
         </wsdl:port>
         <wsdl:port name="Ass02BookSoapHttpsEndpoint" binding="ns:Ass02BookSoapHttpBinding">
-            <http:address location="https://10.1.6.168:9443/services/Ass02BookSoap.Ass02BookSoapHttpsEndpoint/"></http:address>
+            <http:address location="https://localhost:9443/services/Ass02BookSoap.Ass02BookSoapHttpsEndpoint/"></http:address>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
