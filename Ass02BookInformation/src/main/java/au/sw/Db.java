@@ -166,6 +166,42 @@ public class Db {
 			}
 
 		}
+
+		/**
+		 *
+		 */
+		public boolean isEbookAvailable(String isbn) throws Exception {
+			boolean result = false;
+			String query = "";
+			try {
+				myStmt = myConn.createStatement();
+				query = "select * from " + tableName + " where isbn like'%"
+						+ isbn + "%' ";
+				ResultSet myRs1 = myStmt.executeQuery(query);
+				// System.out.println(myRs1.getInt("rating"));
+				String result2 = "";
+				Integer available = null;
+				while (myRs1.next()) {
+					result2 += " result" + myRs1.getInt("ebook");
+					available = myRs1.getInt("ebook");
+
+				}
+				System.out.println(available);
+				if (available == 1) {
+					result = true;
+				}
+
+				return result;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new Exception(
+						" bookinfodbbbbb database there is issue with our database query="
+								+ query);
+
+			}
+
+		}
 	}
 
 	public class DbStudentBorrow {
