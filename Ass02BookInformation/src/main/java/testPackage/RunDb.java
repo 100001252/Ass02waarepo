@@ -11,11 +11,26 @@ public class RunDb {
 		try {
 			// dbtestIsbnExist();
 			// dbtestRating();
-			dbtestavialble();
+			// dbtestavialble();
+			testAllthreemessage();
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public static void testAllthreemessage() {
+		try {
+			Ass02BookInformation bi = new Ass02BookInformation();
+			String isbn = "1234566666";
+			boolean a = bi.validateAllThree(isbn);
+			String b = bi.validateAllThreeMessage(isbn);
+			System.out.println("true/fals: " + a + "|#message=" + b);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void dbtestavialble() {

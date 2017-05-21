@@ -61,6 +61,8 @@ public class Ass02BookInformation {
 				message += "This book is not available in australia.";
 			}
 
+			return message;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
