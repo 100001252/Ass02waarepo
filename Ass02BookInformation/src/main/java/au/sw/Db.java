@@ -73,9 +73,9 @@ public class Db {
 		 *
 		 * @param isbn
 		 * @return
-		 * @throws BookException
+		 * @throws Exception
 		 */
-		public boolean isIsbnExist(String isbn) throws BookException {
+		public boolean isIsbnExist(String isbn) throws Exception {
 			boolean result = false;
 			try {
 				myStmt = myConn.createStatement();
@@ -92,7 +92,7 @@ public class Db {
 				return result;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" bookinfodbbbbb database there is issue with our database query="
 								+ "select count(*) from " + tableName
 								+ " where isbn=" + isbn);
@@ -101,7 +101,7 @@ public class Db {
 
 		}
 
-		public boolean isRatingInRange(String isbn) throws BookException {
+		public boolean isRatingInRange(String isbn) throws Exception {
 			boolean result = false;
 			String query = "";
 			try {
@@ -126,7 +126,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" bookinfodbbbbb database there is issue with our database query="
 								+ query);
 
@@ -134,7 +134,7 @@ public class Db {
 
 		}
 
-		public boolean isAvailableInAustralia(String isbn) throws BookException {
+		public boolean isAvailableInAustralia(String isbn) throws Exception {
 			boolean result = false;
 			String query = "";
 			try {
@@ -159,7 +159,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" bookinfodbbbbb database there is issue with our database query="
 								+ query);
 
@@ -185,10 +185,10 @@ public class Db {
 		 * @param studentId
 		 * @param bookId
 		 * @return if it exist it return true
-		 * @throws BookException
+		 * @throws Exception
 		 */
 		public boolean isRecordExist(Integer studentId, Integer bookId)
-				throws BookException {
+				throws Exception {
 			boolean result = false;
 			try {
 				myStmt = myConn.createStatement();
@@ -205,7 +205,7 @@ public class Db {
 				return result;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" StudentBorrow database there is issue with our database");
 
 			}
@@ -228,7 +228,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" book database there is issue with our database");
 
 			}
@@ -254,7 +254,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" book database there is issue with our database");
 
 			}
@@ -274,7 +274,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						" book database there is issue with our database");
 
 			}
@@ -308,7 +308,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						"4044-updateStudent- database there is issue with our database");
 
 			}
@@ -344,7 +344,7 @@ public class Db {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				e.printStackTrace();
-				throw new BookException(
+				throw new Exception(
 						"4045-insertStudentrecords- database there is issue with our database");
 
 			}
@@ -377,7 +377,7 @@ public class Db {
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				throw new BookException(
+				throw new Exception(
 						"4049-deleteStudentrecords- database there is issue with our database");
 
 			}
