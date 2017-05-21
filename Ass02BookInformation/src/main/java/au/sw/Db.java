@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
+import au.edu.swin.waa.Book;
+import au.edu.swin.waa.BookException;
+
 /**
  * class DB to connect to db for book database and student record database
  *
@@ -62,10 +65,338 @@ public class Db {
 		}
 	}
 
+	public class DbBook {
+		private String tableName = "books";
+		private String dbName = "waa";
+
+		/*
+		 * a consturctor for DbBook class
+		 */
+		public DbBook() {
+
+		}
+
+		/**
+		 * set status of a specific book with book id
+		 *
+		 * @param bookid
+		 * @param status
+		 * @return if update is successfull it returns true. otherwise it
+		 *         returns false
+		 * @throws Exception
+		 */
+		public boolean setStatus(Integer bookid, String status)
+				throws Exception {
+			try {
+
+				myStmt = myConn.createStatement();
+				String sql = "update " + dbName + "." + tableName
+						+ " set status='" + status + "' where id=" + bookid;
+				System.out.println(sql);
+				myStmt.executeUpdate(sql);
+
+				return true;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						"4042-updatetBook-book database there is issue with our database");
+
+			}
+
+		}
+
+		/**
+		 * function to update book details in db with book id
+		 *
+		 * @param bookid
+		 * @param title
+		 * @param authorList
+		 * @param isbn
+		 * @param publishDate
+		 * @param publisher
+		 * @param status
+		 * @return if action is successfull return true otherwise return false
+		 * @throws Exception
+		 */
+		public boolean updateBook(Integer bookid, String title,
+				String authorList, String isbn, String publishDate,
+				String publisher, String status) throws Exception {
+			try {
+
+				myStmt = myConn.createStatement();
+				String sql = "update " + dbName + "." + tableName
+						+ " set title='" + title + "',authorList='"
+						+ authorList + "',isbn='" + isbn + "',publishDate='"
+						+ publishDate + "',status='" + status + "',publisher='"
+						+ publisher + "' where id=" + bookid;
+				System.out.println(sql);
+				myStmt.executeUpdate(sql);
+
+				return true;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				throw new BookException(
+						"4042-updatetBook-book database there is issue with our database");
+
+			}
+
+		}
+
+		/**
+		 * function to delete a book with book id
+		 *
+		 * @param bookid
+		 * @return if action is successfull return true otherwise return false
+		 * @throws Exception
+		 */
+		public boolean deleteBook(Integer bookid) throws Exception {
+			try {
+
+				myStmt = myConn.createStatement();
+				String sql = "delete from " + dbName + "." + tableName
+						+ " where id=" + bookid;
+				System.out.println(sql);
+				myStmt.executeUpdate(sql);
+
+				return true;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						"insertBook -book database there is issue with our database");
+
+			}
+
+		}
+
+		/**
+		 * get all books in database
+		 *
+		 * @return rsultSet (it is usable in any other functions)
+		 * @throws BookException
+		 */
+		public ResultSet getAllBooks() throws Exception {
+			try {
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select * from " + tableName);
+				return myRs;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+		}
+
+		/**
+		 * get one pecific book with id
+		 *
+		 * @return rsultSet (it is usable in any other functions)
+		 * @throws BookException
+		 */
+		public ResultSet getBook(Integer bookid) throws Exception {
+			try {
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select * from " + tableName
+						+ " where id=" + bookid);
+				return myRs;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+		}
+
+		/**
+		 * function to check if book_id exist in database
+		 *
+		 * @param bookid
+		 * @return if book_id exist in db it returns true, otherwise it returns
+		 *         false
+		 * @throws Exception
+		 */
+		public boolean findBook(Integer bookid) throws Exception {
+			boolean result = false;
+			try {
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select count(*) from " + tableName
+						+ " where id=" + bookid);
+				while (myRs.next()) {
+					if (myRs.getInt(1) > 0)
+						result = true;
+					else
+						result = false;
+				}
+
+				return result;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+		}
+
+		/**
+		 * function to check if book_id exist in database
+		 *
+		 * @param bookid
+		 * @return if book_id exist in db it returns true, otherwise it returns
+		 *         false
+		 * @throws Exception
+		 */
+		public boolean isIsbnExist(String isbn) throws Exception {
+			boolean result = false;
+			try {
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select count(*) from " + tableName
+						+ " where isbn=" + isbn);
+				while (myRs.next()) {
+					if (myRs.getInt(1) > 0)
+						result = true;
+					else
+						result = false;
+				}
+
+				return result;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+		}
+
+		/**
+		 * function to check if isbn exists in database already(isbn is
+		 * international unique key)
+		 *
+		 * @param isbn
+		 * @return return true if isbn already exists, otherwise it returns
+		 *         false
+		 * @throws BookException
+		 */
+		public boolean isBookWithIsbnExist(String isbn) throws BookException {
+			boolean result = false;
+			try {
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select count(*) from " + tableName
+						+ " where isbn=" + isbn);
+				while (myRs.next()) {
+					if (myRs.getInt(1) > 0)
+						result = true;
+					else
+						result = false;
+				}
+
+				return result;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+
+		}
+
+		/**
+		 * function to return last book entered into db
+		 *
+		 * @return last Book_id in db
+		 * @throws Exception
+		 */
+		public Integer getLastIdinserted() throws Exception {
+			try {
+				Integer result = 0;
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery("select * from " + tableName
+						+ " order by id desc limit 1");
+				while (myRs.next()) {
+					result = myRs.getInt("id");
+				}
+				return result;
+
+			} catch (Exception e) {
+				// System.out.println(e.);
+				throw new BookException(
+						" book database there is issue with our database");
+
+			}
+		}
+
+		/**
+		 * function to insert a book
+		 *
+		 * @param bookId
+		 * @param bookTitle
+		 * @param authorList
+		 * @param isbn
+		 * @param publisher
+		 * @param publishDate
+		 * @param status
+		 * @param stid
+		 * @return if inserted successfully it return true
+		 * @throws BookException
+		 */
+		public boolean insretBook(Book objBook) throws BookException {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+				myStmt = myConn.createStatement();
+				String sql = "insert into " + dbName + "." + tableName
+						+ "(title,authorList,isbn,"
+						+ "publisher,publishDate,status,createdTime) "
+						+ "values('" + objBook.getBookTitle() + "','"
+						+ objBook.getAuthorList() + "','" + objBook.getIsbn()
+						+ "'" + ",'" + objBook.getPublisher() + "','"
+						+ sdf.format(objBook.getPublishDate()) + "','"
+						+ objBook.getStatus() + "',NOW())";
+				System.out.println(sql);
+				myStmt.executeUpdate(sql);
+
+				return true;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						"insertBook -book database there is issue with our database");
+
+			}
+
+		}
+
+	}
+
 	public class DbBookInformation {
 		private String tableName = "bookshop";
 
 		public DbBookInformation() {
+		}
+
+		public ResultSet getAllDetailBook(String isbn) throws Exception {
+
+			String query = "";
+			try {
+				query = "select * from " + tableName + " where isbn='" + isbn
+						+ "'";
+				myStmt = myConn.createStatement();
+				myRs = myStmt.executeQuery(query);
+
+				return myRs;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new Exception(
+						" bookinfodbbbbb database there is issue with our database query="
+								+ query);
+
+			}
+
 		}
 
 		/**

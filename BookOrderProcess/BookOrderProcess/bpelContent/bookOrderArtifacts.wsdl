@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:ns="http://waa.swin.artifacts" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl1="http://waa.swin.edu.au" xmlns:wsdl2="http://hu.swin.waa" xmlns:wsdl3="http://sw.au" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="bookOrderArtifacts" targetNamespace="http://waa.swin.artifacts">
+    <partnerLinkType name="clientPLT" xmlns="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <role name="orderServicePro" portType="ns:bookOrderPortType"/>
+  </partnerLinkType>
+    <plnk:partnerLinkType name="bookLibPLT">
+    <plnk:role name="libServicePro" portType="wsdl1:Ass02BookSoapPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="studentPLT">
+    <plnk:role name="studentServicePro" portType="wsdl2:Ass02StudentSoapPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="bookShopPLT">
+    <plnk:role name="bookShopServicePro" portType="wsdl3:Ass02BookInformationPortType"/>
+  </plnk:partnerLinkType>
+    <wsdl:import location="Ass02BookSoap.wsdl" namespace="http://waa.swin.edu.au"/>
+    <wsdl:import location="Ass02StudentSoap.wsdl" namespace="http://hu.swin.waa"/>
+    <wsdl:import location="Ass02BookInformation.wsdl" namespace="http://sw.au"/>
+    <wsdl:types>
+    <xsd:schema targetNamespace="http://waa.swin.artifacts">
+      <xsd:element name="orderBook">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="studentId" type="xsd:int"/>
+          	<xsd:element name="pin" type="xsd:string"/>
+          	<xsd:element name="isbn" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="orderBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="replyResponse" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="orderBookRequest">
+    <wsdl:part element="ns:orderBook" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="orderBookResponse">
+    <wsdl:part element="ns:orderBookResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="bookOrderPortType">
+    <wsdl:operation name="orderBook">
+      <wsdl:input message="ns:orderBookRequest"/>
+      <wsdl:output message="ns:orderBookResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="bookOrderArtifactsSOAP" type="ns:bookOrderPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="orderBook">
+      <soap:operation soapAction="http://waa.swin.artifacts/NewOperation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="bookOrder">
+    <wsdl:port binding="ns:bookOrderArtifactsSOAP" name="bookOrderPort">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

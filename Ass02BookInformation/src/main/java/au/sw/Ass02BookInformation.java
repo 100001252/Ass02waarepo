@@ -2,6 +2,8 @@ package au.sw;
 
 import java.sql.ResultSet;
 
+import au.sw.Db.DbBookInformation;
+
 public class Ass02BookInformation {
 	// book has to be available in australia and rating between 3 to 5
 	public boolean isRatingInRange(String isbn) {
@@ -15,6 +17,31 @@ public class Ass02BookInformation {
 			e.printStackTrace();
 		}
 		return result;
+
+	}
+
+	public String getAllDetailBook(String isbn) {
+		String output = "";
+		try {
+			DbBookInformation di = new Db().new DbBookInformation();
+			ResultSet rs = di.getAllDetailBook("1234566616");
+
+			while (rs.next()) {
+				output += rs.getString("title") + "/#"
+						+ rs.getString("authorList") + "/#"
+						+ rs.getString("isbn") + "/#"
+						+ rs.getString("publisher") + "/#"
+						+ rs.getString("publishDate") + "/#"
+						+ rs.getString("rating") + "/#"
+						+ rs.getInt("availabilityaus") + "/#"
+						+ rs.getInt("ebook");
+			}
+			return output;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
 
 	}
 
@@ -70,12 +97,12 @@ public class Ass02BookInformation {
 				message = "This isbn does not exist in our bookshop";
 				return message;
 
-			}
-			if (!isRatingInRange(isbn)) {
+			} else if (!isRatingInRange(isbn)) {
 				message += "Rating for this book is less than 3 we cannot process.";
-			}
-			if (!isAvailableInAustralia(isbn) && !isEbookAvailable(isbn)) {
+			} else if (!isAvailableInAustralia(isbn) && !isEbookAvailable(isbn)) {
 				message += "This book is not available in australia and Ebook is not availble for this book.";
+			} else {
+				message = getAllDetailBook(isbn);
 			}
 
 			return message;

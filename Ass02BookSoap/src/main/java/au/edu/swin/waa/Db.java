@@ -368,6 +368,45 @@ public class Db {
 
 		}
 
+		/**
+		 * insert book into db
+		 * 
+		 * @param title
+		 * @param authorList
+		 * @param isbn
+		 * @param publisher
+		 * @param publishDate
+		 * @param status
+		 * @return
+		 * @throws BookException
+		 */
+		public boolean insretBook2(String title, String authorList,
+				String isbn, String publisher, String publishDate, String status)
+				throws BookException {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+				myStmt = myConn.createStatement();
+				String sql = "insert into " + dbName + "." + tableName
+						+ "(title,authorList,isbn,"
+						+ "publisher,publishDate,status,createdTime) "
+						+ "values('" + title + "','" + authorList + "','"
+						+ isbn + "'" + ",'" + publisher + "','" + publishDate
+						+ "','" + status + "',NOW())";
+				System.out.println(sql);
+				myStmt.executeUpdate(sql);
+
+				return true;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						"insertBook -book database there is issue with our database");
+
+			}
+
+		}
+
 	}
 
 	public class DbStudentBorrow {

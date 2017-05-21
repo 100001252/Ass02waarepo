@@ -2,6 +2,7 @@ package testPackage;
 
 import java.sql.ResultSet;
 
+import au.edu.swin.waa.Ass02BookSoap;
 import au.sw.*;
 import au.sw.Db.DbBookInformation;
 
@@ -12,10 +13,34 @@ public class RunDb {
 			// dbtestIsbnExist();
 			// dbtestRating();
 			// dbtestavialble();
-			testAllthreemessage();
+			// testAllthreemessage();
+			testdbGetbookInfo();
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void testdbGetbookInfo() {
+		try {
+			DbBookInformation di = new Db().new DbBookInformation();
+			ResultSet rs = di.getAllDetailBook("1234566616");
+			String output = "";
+			while (rs.next()) {
+				output += rs.getString("title") + "/#"
+						+ rs.getString("authorList") + "/#"
+						+ rs.getString("isbn") + "/#"
+						+ rs.getString("publisher") + "/#"
+						+ rs.getString("publishDate") + "/#"
+						+ rs.getString("rating") + "/#"
+						+ rs.getInt("availabilityaus") + "/#"
+						+ rs.getInt("ebook");
+			}
+			Ass02BookSoap booksoap = new Ass02BookSoap();
+			boolean insert = booksoap.orderBookByBpel(2, output);
+			System.out.println(insert + "  output=" + output);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

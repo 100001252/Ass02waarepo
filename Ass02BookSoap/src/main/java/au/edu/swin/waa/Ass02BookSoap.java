@@ -1,6 +1,9 @@
 package au.edu.swin.waa;
 
+import java.util.*;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import au.edu.swin.waa.Db.DbBook;
 import au.edu.swin.waa.Db.DbStudentBorrow;
@@ -224,6 +227,29 @@ public class Ass02BookSoap {
 		}
 	}
 
+	public boolean orderBookByBpel(Integer studentId, String bookinfo) {
+		boolean result = false;
+		try {
+
+			String[] strArr = bookinfo.split("/#");
+
+			System.out.println("myarray= " + strArr[0] + "," + strArr[1]);
+			addBook(strArr[0], strArr[1], strArr[2], strArr[3], strArr[4],
+					"back order");
+			DbBook dbbook = new Db().new DbBook();
+			Integer bookid = dbbook.getLastIdinserted();
+			insertStudentrecords(studentId, bookid, "back order");
+
+			result = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
+
 	/**
 	 * function to add book with all details
 	 *
@@ -247,11 +273,14 @@ public class Ass02BookSoap {
 			if (dbbook.isBookWithIsbnExist(isbn))
 				throw new BookException(
 						"this isbn already exists in our system");
+			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			// Date pd = df.parse(publishDate);
 
-			Book objb = new Book(bookTitle, authorList, isbn, publisher,
-					publishDate, status, 0);
+			// Book objb = new Book(bookTitle, authorList, isbn, publisher,
+			// publishDate, status, 0);
 
-			dbbook.insretBook(objb);
+			dbbook.insretBook2(bookTitle, authorList, isbn, publisher,
+					publishDate, status);
 			Integer id = dbbook.getLastIdinserted();
 			// readAllBooksFromDb();
 			String result = "Book has been added successfully. book Id is:"
