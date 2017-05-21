@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2017 at 02:28 PM
+-- Generation Time: May 21, 2017 at 08:08 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -44,13 +44,46 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `title`, `authorList`, `isbn`, `publisher`, `publishDate`, `status`, `extInfo`, `createdTime`, `updatedTime`) VALUES
-(1, 'changed', 'changed', '1234567855', 'changed', '22/09/2014', 'on loan', NULL, NULL, '2017-05-02 11:32:34'),
 (2, 'bok2', 'authorlist', '1234567987', 'publisher', '12/09/1980', 'on loan', NULL, '2017-04-09 18:52:07', '2017-05-07 03:30:11'),
 (3, 'book3', 'book3author', '1234567893', 'publisher3', '26/09/2012', 'on loan', NULL, NULL, '2017-04-23 11:52:42'),
 (4, 'book4', 'book3author', '1234567894', 'publisher3', '26/09/2012', 'on loan', NULL, NULL, '2017-04-25 02:13:22'),
 (5, 'book5', 'book3author', '1234567895', 'publisher3', '26/09/2012', 'available', NULL, NULL, '2017-04-23 11:40:22'),
 (6, 'test20', 'test20author', '1234567891', 'mypublisher', '26/05/2012', 'on loan', NULL, '2017-05-02 20:47:07', '2017-05-02 11:40:50'),
-(7, 'test90', 'test90 publisher', '1234324123', 'mypublisher', '25/09/2015', 'available', NULL, '2017-05-02 21:30:28', '2017-05-02 11:30:52');
+(7, 'test90', 'test90 publisher', '1234324123', 'mypublisher', '25/09/2015', 'available', NULL, '2017-05-02 21:30:28', '2017-05-02 11:30:52'),
+(8, 'testtitle44', 'testautorlist', '1241233454', 'publishername', 'Tue Sep 22 00:00:00 AEST 2015', 'available', NULL, '2017-05-13 20:43:01', '2017-05-13 10:43:01'),
+(9, 'test55', 'my author list', '1234567777', 'publisher', 'Tue Mar 22 00:00:00 AEDT 2016', 'available', NULL, '2017-05-13 20:47:54', '2017-05-13 10:47:54'),
+(10, 'test444', 'my author list', '8888888888', 'publisher', '22/03/2016', 'available', NULL, '2017-05-13 20:54:06', '2017-05-13 10:54:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookshop`
+--
+
+CREATE TABLE `bookshop` (
+  `id` int(11) NOT NULL,
+  `title` varchar(250) DEFAULT NULL,
+  `authorList` varchar(250) DEFAULT NULL,
+  `isbn` varchar(250) DEFAULT NULL,
+  `publisher` varchar(250) DEFAULT NULL,
+  `publishDate` varchar(250) DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `availabilityaus` tinyint(1) DEFAULT '1',
+  `ebook` tinyint(1) DEFAULT '0',
+  `createdTime` datetime DEFAULT NULL,
+  `updatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bookshop`
+--
+
+INSERT INTO `bookshop` (`id`, `title`, `authorList`, `isbn`, `publisher`, `publishDate`, `rating`, `availabilityaus`, `ebook`, `createdTime`, `updatedTime`) VALUES
+(1, 'test1', NULL, '1234566666', NULL, NULL, 2, 1, 1, NULL, '2017-05-21 05:43:27'),
+(2, 'test2', NULL, '1234566616', NULL, NULL, 3, 1, 1, NULL, '2017-05-21 05:46:15'),
+(3, 'test2', NULL, '1234566626', NULL, NULL, 4, 1, 1, NULL, '2017-05-21 05:46:44'),
+(4, 'test2', NULL, '1234566636', NULL, NULL, 4, 0, 1, NULL, '2017-05-21 05:46:59'),
+(6, 'test2', NULL, '1234566646', NULL, NULL, 4, 0, 0, NULL, '2017-05-21 05:47:15');
 
 -- --------------------------------------------------------
 
@@ -85,7 +118,9 @@ INSERT INTO `students` (`id`, `fullName`, `pin`, `extInfo`, `createdTime`, `upda
 (12, 'alan', '333', NULL, '2017-04-10 21:16:30', '2017-04-10 11:16:30'),
 (13, 'alan', '333', NULL, '2017-04-11 22:06:24', '2017-04-11 12:06:24'),
 (14, 'alan', '333', NULL, '2017-04-11 22:09:27', '2017-04-11 12:09:27'),
-(15, 'alan', '333', NULL, '2017-04-11 22:09:58', '2017-04-11 12:09:58');
+(15, 'alan', '333', NULL, '2017-04-11 22:09:58', '2017-04-11 12:09:58'),
+(16, 'test44', '44', NULL, '2017-05-13 20:44:11', '2017-05-13 10:44:11'),
+(17, 'testtttt', '22', NULL, '2017-05-19 20:55:35', '2017-05-19 10:55:35');
 
 -- --------------------------------------------------------
 
@@ -125,6 +160,13 @@ ALTER TABLE `books`
   ADD UNIQUE KEY `uq_book_cons` (`isbn`);
 
 --
+-- Indexes for table `bookshop`
+--
+ALTER TABLE `bookshop`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `isbn` (`isbn`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
@@ -145,12 +187,17 @@ ALTER TABLE `student_borrow`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `bookshop`
+--
+ALTER TABLE `bookshop`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `student_borrow`
 --

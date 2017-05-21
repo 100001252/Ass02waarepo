@@ -68,6 +68,13 @@ public class Db {
 		public DbBookInformation() {
 		}
 
+		/**
+		 * check if isbn exist in bookshop
+		 *
+		 * @param isbn
+		 * @return
+		 * @throws BookException
+		 */
 		public boolean isIsbnExist(String isbn) throws BookException {
 			boolean result = false;
 			try {
@@ -91,6 +98,73 @@ public class Db {
 								+ " where isbn=" + isbn);
 
 			}
+
+		}
+
+		public boolean isRatingInRange(String isbn) throws BookException {
+			boolean result = false;
+			String query = "";
+			try {
+				myStmt = myConn.createStatement();
+				query = "select * from " + tableName + " where isbn like'%"
+						+ isbn + "%' ";
+				ResultSet myRs1 = myStmt.executeQuery(query);
+				// System.out.println(myRs1.getInt("rating"));
+				String result2 = "";
+				Integer rating = null;
+				while (myRs1.next()) {
+					result2 += " result" + myRs1.getInt("rating");
+					rating = myRs1.getInt("rating");
+
+				}
+				System.out.println(rating);
+				if (rating > 2) {
+					result = true;
+				}
+
+				return result;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" bookinfodbbbbb database there is issue with our database query="
+								+ query);
+
+			}
+
+		}
+
+		public boolean isAvailableInAustralia(String isbn) throws BookException {
+			boolean result = false;
+			String query = "";
+			try {
+				myStmt = myConn.createStatement();
+				query = "select * from " + tableName + " where isbn like'%"
+						+ isbn + "%' ";
+				ResultSet myRs1 = myStmt.executeQuery(query);
+				// System.out.println(myRs1.getInt("rating"));
+				String result2 = "";
+				Integer available = null;
+				while (myRs1.next()) {
+					result2 += " result" + myRs1.getInt("availabilityaus");
+					available = myRs1.getInt("availabilityaus");
+
+				}
+				System.out.println(available);
+				if (available == 1) {
+					result = true;
+				}
+
+				return result;
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				throw new BookException(
+						" bookinfodbbbbb database there is issue with our database query="
+								+ query);
+
+			}
+
 		}
 	}
 
