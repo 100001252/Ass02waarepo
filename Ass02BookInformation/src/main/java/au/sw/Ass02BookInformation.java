@@ -24,7 +24,7 @@ public class Ass02BookInformation {
 		String output = "";
 		try {
 			DbBookInformation di = new Db().new DbBookInformation();
-			ResultSet rs = di.getAllDetailBook("1234566616");
+			ResultSet rs = di.getAllDetailBook(isbn);
 
 			while (rs.next()) {
 				output += rs.getString("title") + "/#"
