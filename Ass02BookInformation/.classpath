@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/WSO2 Jars"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Ass02BookSoap"/>
-	<classpathentry kind="lib" path="C:/Users/feiyeyuji/Desktop/restful/Ass02waarepo/otherFiles/mysql-connector-java-5.1.41/mysql-connector-java-5.1.41-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/XC8184/Downloads/mysql-connector-java-5.1.41/mysql-connector-java-5.1.41/mysql-connector-java-5.1.41-bin.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>

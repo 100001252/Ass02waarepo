@@ -1,0 +1,33 @@
+before start testing do two steps:
+a>remove all books database from booklibrary, and make other book status available (,2nd row onwards)
+b> make sure all bookshop books has got date
+c>remove all student borrowing records
+------------------------------
+1>student with wrong auth
+2>student pass but isbn does not exist in db 
+**********needs to check that isbn is 10
+3> student book normally: 
+student number 2 and isbn 1234566616
+is going to book a valid book  
+*****(good but needs to show detail of that book)
+
+4> if he try again: (recieve that book already exist)
+(pass)
+
+5>another student try to order: student 3 same book
+(pass)
+
+6>book rating is less than 3
+try isbn: rating for this book is less than 3
+1234566666
+
+7>book is not in aus and ebook not available:
+1234566646
+6>book is in aus but no ebook
+1234566626
+
+8>book not in aus but there is  ebook:
+1234566636
+
+
+
