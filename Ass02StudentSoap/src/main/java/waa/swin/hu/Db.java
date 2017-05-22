@@ -1,4 +1,4 @@
-package au.edu.swin.waa;
+package waa.swin.hu;
 import com.mysql.jdbc.Driver;
 
 import java.sql.*;

@@ -1,9 +1,11 @@
-package au.edu.swin.waa;
+package waa.swin.hu;
 
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import waa.swin.hu.Db.DbStudent;
 
 
 /**

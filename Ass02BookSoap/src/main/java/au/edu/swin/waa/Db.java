@@ -53,8 +53,8 @@ public class Db {
 
 			dbName = "waa";
 			this.url = "jdbc:mysql://localhost:3306/" + dbName;
-			this.user = "root";
-			this.pass = "";
+			this.user = "admin2";
+			this.pass = "admin2";
 			myConn = DriverManager
 					.getConnection(this.url, this.user, this.pass);
 		} catch (Exception e) {

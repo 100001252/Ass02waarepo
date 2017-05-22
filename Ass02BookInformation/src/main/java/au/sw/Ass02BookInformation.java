@@ -102,10 +102,10 @@ public class Ass02BookInformation {
 			} else if (!isAvailableInAustralia(isbn) && !isEbookAvailable(isbn)) {
 				message += "This book is not available in australia and Ebook is not availble for this book.";
 			} else {
-				message = getAllDetailBook(isbn);
+				return message;//message = getAllDetailBook(isbn);
 			}
 
-			return message;
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

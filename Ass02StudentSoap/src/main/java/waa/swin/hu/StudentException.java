@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package au.edu.swin.waa;
+package waa.swin.hu;
 
 /** specific exception for all issue happening inside retrive or wroking with student DB
  * with some common overwritten functions

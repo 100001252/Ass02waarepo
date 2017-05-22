@@ -1,6 +1,6 @@
 package testPackage;
 
-import au.edu.swin.waa.Ass02StudentSoap;
+import waa.swin.hu.Ass02StudentSoap;
 
 public class RunDb {
 
