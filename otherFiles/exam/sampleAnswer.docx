@@ -1,0 +1,115 @@
+32. Why does a service need to be described?
+	(Lec03)For “use of service” to happen, the consumer needs to understand and the provider needs to tell the functions, usages and quality of the service.
+33. In general, what aspects of a service need to be described for it to be understood properly by consumers? Which Web service standards are used to describe these aspects?
+(Lec03)
+•	• What the service can do – functionality: (by WSDL …)
+•	• How good the service can do it – qualities: (partly by other WS standards …)
+•	• How to use the service – usage: (partly by WSDL …)
+34. Outline the structure of WSDL documents and explain the purpose of its elements
+(Lec03) Abstract (interface) definitions
+•	• <types> data type definitions
+•	• <message> operation parameters
+•	• <operation> abstract description of service actions
+•	• <portType> set of operation definitions
+ Concrete (implementation) definitions
+•	• <binding> operation bindings
+•	• <port> association of an endpoint with a binding
+•	• <service> location/address for each binding
+
+35. Name and explain the WSDL message exchange patterns (MEP). How can we tell from a WSDL document which MEP is being used for an interaction?
+(Lec03) One-way Messaging, Request/Response Messaging, Notification Messaging, Solicit/Response Messaging.
+	A one-way message defines only an input message. 
+	A request/response message declare a single <input> element followed by a single <output> element in an <operation> element.
+	Notification message is when a <portType> element contains an <output> tag but no <input> message definitions.
+	Solicit/Response Message is when a <portType> element first declares an <output> tag and then a <input> message definition – exactly the reverse of a request/response operation
+
+36. Explain how a Web service interface is linked to an implementation of the interface.
+(Lec03) WSDL use binding to link the abstract interface operations to concrete service operations.
+
+
+37. Develop the WSDL description for the following service: a flight booking service of a given airline. 
+(Lec03) <wsdl:definitions <!-- xsd namespaces defined here -- >
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/PostalCodeServiceSOAPTopdown/"
+	xmlns:wsdl=http://schemas.xmlsoap.org/wsdl/
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/FlightBookingServiceSOAPTopdown/">
+<wsdl:types> <!-- xsd type definition for message parts here -- >
+<xsd:schema targetNamespace="http://example.com/stockquote/schemas"
+	<xsd:complexType name="CustomerInfoType">
+		<xsd:sequence>
+			<xsd:element name="CusNamer" type="xsd:string"/>
+			<xsd:element name="CusAddress" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="POType">
+		<xsd:sequence>
+			<xsd:element name="PONumber" type="integer"/>
+			<xsd:element name="PODate" type="string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InvoiceType">
+		<xsd:all>
+			<xsd:element name="InvPrice" type="float"/>
+			<xsd:element name="InvDate" type="string"/>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="POMessage"> <!--input message -->
+<wsdl:part name="PurchaseOrder" type="tns:POType"/>
+<wsdl:part name="CustomerInfo" type="tns:CustomerInfoType”/>
+</wsdl:message>
+<wsdl:message name="InvMessage"> <! -- output message -->
+<wsdl:part name="Invoice" type="tns:InvoiceType"/>
+</wsdl:message>
+
+<wsdl:portType name="PurchaseOrderPortType">
+	<wsdl:operation name="SendPurchase">
+		<wsdl:input message="tns:POMessage"/>
+		<wsdl:output message="tns:InvMessage"/>
+	</wsdl:operation>
+</wsdl:portType>
+
+<wsdl:binding name="PurchaseOrderSOAPBinding"
+		type="tns:PurchaseOrderPortType">
+  <!-- leverage off soapbind:binding synchronous style -->
+ <soapbind:binding style="rpc"
+		transport="http://schemas.xmlsoap.org/soap/http/"/>
+
+ <wsdl:operation name="SendPurchase">
+	<!-- again bind to SOAP -->
+	<soapbind:operation
+		soapAction="http://supply.com/ PurchaseService/wsdl/ SendPurchase" style="rpc"/>
+	<!-- furthur specify that the messages in the wsdl:operation use SOAP -->
+	<wsdl:input>
+		<soapbind:body use="literal" 							namespace="http://supply.com/PurchaseService/wsdl"/>
+	</wsdl:input>
+	<wsdl:output>
+		<soapbind:body use=“literal"
+			namespace="http://supply.com/ PurchaseService/wsdl"/>
+	</wsdl:output>
+	</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name=“PurchaseOrderService">
+	<wsdl:port name=“PurchaseOrderPort" binding="tns:PurchaseOrderSOAPBinding">
+	<!-- give the binding a network endpoint address or URI of service -->
+	<soapbind:address location="http://supply.com:8080/PurchaseOrderService"/>
+	</wsdl:port>
+</wsdl:service>
+
+38. What is the difference between “Business Process” and a “workflow”
+(Lec07) A business process is a set of logically related tasks performed to achieve a well-defined business outcome.  And workflow is more like a sequence of activities for complete a task.
+
+39. What is HATEOAS and how is it used to implemented processes in RESTful architectures?
+(Lec07)  Hypertext As The Engine Of Application State (HATEOAS). 
+Response from the server contain not just the information requested, but links to next step(s), and server can customize response link depend on resource state. Process enactment is driven by the clients from choices provided by the server.
+
+40. How could progress of a process be tracked in a Resource-based service composition?
+(Lec07) State-based – process tracked by the changing state of the artifact
+
+41. Explain why event-driven processes can be readily adapted
+(Lec07 )Because services do not need to know about each other, so it is easy to extend event-driven process by add new service.
+
+42. What needs to be changed if the control flow of a RESTful process needs to be altered?
+Not find
